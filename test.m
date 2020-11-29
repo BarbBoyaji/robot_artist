@@ -6,11 +6,10 @@ clc;
 clear;
 
 % Parameter
-L1 = 0.087; % m
-L2 = 0.111; % m
-L3 = 0.078; % m
-L4 = 0.088; % m
-
+L1 = 0.3; % m
+L2 = 0.05; % m
+L3 = 0.1; % m
+L4 = 0.1; % m
 c = [L1, L2, L3, L4];
 
 % Plot
@@ -18,6 +17,11 @@ figure (1)
 i=1;
 
 joint = zeros(5,1);
+
+joint(2) = 0.1
+joint(3) = 0.1
+joint(4) = 0.1
+joint(5) = 0.1
 
 T = FK(c,joint(:,i));
 
@@ -56,7 +60,7 @@ surf(X,Y,Z,'FaceColor',[0.9 0.9 0.9],'edgecolor','none');
 xlabel('x [m]');
 ylabel('y [m]');
 zlabel('z [m]');
-axis([-0.2 0.2 -0.2 0.2 -0.2 0.2]);
+axis([-1.0 1.0 -1.0 1.0 -1.0 1.0]);
 pbaspect([1 1 1]);
 grid on;
 
