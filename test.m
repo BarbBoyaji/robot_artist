@@ -10,7 +10,10 @@ L1 = 0.3; % m
 L2 = 0.05; % m
 L3 = 0.1; % m
 L4 = 0.1; % m
-c = [L1, L2, L3, L4];
+
+Lp = 0.1 % m 
+
+c = [L1, L2, L3, L4, Lp];
 
 % Plot
 figure (1)
@@ -28,14 +31,14 @@ T = FK(c,joint(:,i));
 hold on
 
 % Manipulator
-for j = 1:5
+for j = 1:6
     pj = T{j}(1:3,4);
     pj1 = T{j+1}(1:3,4);
     plot3([pj(1) pj1(1)],[pj(2) pj1(2)],[pj(3) pj1(3)],'k','linewidth',4);
 end
 
 % Frames
-for j = 1:5
+for j = 1:6
     pj = T{j}(1:3,4);
     Rj = T{j}(1:3,1:3);
     scale = 0.025;
@@ -60,7 +63,8 @@ surf(X,Y,Z,'FaceColor',[0.9 0.9 0.9],'edgecolor','none');
 xlabel('x [m]');
 ylabel('y [m]');
 zlabel('z [m]');
-axis([-1.0 1.0 -1.0 1.0 -1.0 1.0]);
+ranges = 0.6;
+axis([-ranges ranges -ranges ranges -ranges ranges]);
 pbaspect([1 1 1]);
 grid on;
 

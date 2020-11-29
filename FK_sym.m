@@ -1,19 +1,8 @@
-function T = FK(c,joint)
-% c - parameter
-% joint - joint position list
-% T - T{j} = T0j
+% generate FK symbolic
+syms t1 t2 t3 t4 t5 real 
+syms L1 L2 L3 L4 L5 real
+syms pi real
 
-L1 = c(1);
-L2 = c(2);
-L3 = c(3);
-L4 = c(4);
-L5 = c(5);
-
-t1 = joint(1);
-t2 = joint(2);
-t3 = joint(3);
-t4 = joint(4);
-t5 = joint(5);
 
 % DH parameters
 % alpha a d theta
@@ -31,7 +20,7 @@ d = DH(:,3);
 theta = DH(:,4);
 
 % initial
-To = eye(4); % base frame itself
+To = sym(eye(4)); % base frame itself
 
 for j = 1:7
     
@@ -40,9 +29,9 @@ for j = 1:7
         -sin(alpha(j)) -sin(alpha(j))*d(j);
         sin(theta(j))*sin(alpha(j)) cos(theta(j))*sin(alpha(j)) ...
         cos(alpha(j)) cos(alpha(j))*d(j);0 0 0 1];
-    To = To*Ti;
+    To = simplify(To*Ti);
     T{j} = To;
     
 end
 
-end
+chr = latex(T{7}(1:3,4));
