@@ -21,24 +21,25 @@ i=1;
 
 joint = zeros(5,1);
 
-joint(2) = -0.4
-joint(3) = pi/2 + 0.9
-joint(4) = -0.3
-% joint(5) = pi/2
+joint(2) = 0
+joint(3) = pi/2
+joint(4) = 0
+joint(5) = pi/2
+joint(6) = 0
 
-T = FK(c,joint(:,i));
+T = FK_6dof(c,joint(:,i));
 
 hold on
 
 % Manipulator
-for j = 1:5
+for j = 1:7
     pj = T{j}(1:3,4);
     pj1 = T{j+1}(1:3,4);
     plot3([pj(1) pj1(1)],[pj(2) pj1(2)],[pj(3) pj1(3)],'k','linewidth',4);
 end
 
 % Frames
-for j = 1:5
+for j = 1:7
     pj = T{j}(1:3,4);
     Rj = T{j}(1:3,1:3);
     scale = 0.025;

@@ -26,9 +26,9 @@ counter = 1;
 for joint2 = -3*pi/2:0.1:pi/2
     for joint3 = -pi/2:0.1:pi/2
         for joint4 = -pi/2:0.1:pi/2
-            for joint5 = 0:0.02:0.1
+%             for joint5 = 0:0.02:0.1
                 
-                joint = [0, joint2, joint3, joint4 , joint5];
+                joint = [0, joint2, joint3, joint4 , 0];
                 
                 T = FK(c,joint);
 
@@ -37,7 +37,7 @@ for joint2 = -3*pi/2:0.1:pi/2
                 collection(:,counter) = pj;
                 counter = counter+1
                 
-            end
+%             end
         end
     end
 end

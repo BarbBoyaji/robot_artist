@@ -1,5 +1,5 @@
 % generate FK symbolic
-syms t1 t2 t3 t4 t5 real 
+syms t1 t2 t3 t4 t5 t6 real 
 syms L1 L2 L3 L4 L5 real
 syms pi real
 
@@ -11,7 +11,9 @@ DH = [0 0 0 t1;
      -pi/2 0 L2 t2;
       0 L3 0 t3;
       pi/2 0 L4 t4;
-      -pi/2 0 L5 0];
+      -pi/2 0 L5 t5
+      -pi/2 0 0 t6
+      0 0 0 0 ];
   
 alpha = DH(:,1); 
 a = DH(:,2); 
@@ -21,7 +23,7 @@ theta = DH(:,4);
 % initial
 To = sym(eye(4)); % base frame itself
 
-for j = 1:6
+for j = 1:8
     
     Ti = [cos(theta(j)) -sin(theta(j)) 0 a(j);
         sin(theta(j))*cos(alpha(j)) cos(theta(j))*cos(alpha(j)) ...

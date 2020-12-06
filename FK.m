@@ -13,7 +13,7 @@ t1 = joint(1);
 t2 = joint(2);
 t3 = joint(3);
 t4 = joint(4);
-t5 = joint(5);
+% t5 = joint(5);
 
 % DH parameters
 % alpha a d theta
@@ -22,7 +22,6 @@ DH = [0 0 0 t1;
      -pi/2 0 L2 t2;
       0 L3 0 t3;
       pi/2 0 L4 t4;
-      0 0 t5 0; 
       -pi/2 0 L5 0];
   
 alpha = DH(:,1); 
@@ -33,7 +32,7 @@ theta = DH(:,4);
 % initial
 To = eye(4); % base frame itself
 
-for j = 1:7
+for j = 1:6
     
     Ti = [cos(theta(j)) -sin(theta(j)) 0 a(j);
         sin(theta(j))*cos(alpha(j)) cos(theta(j))*cos(alpha(j)) ...
