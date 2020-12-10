@@ -11,12 +11,11 @@ L2 = 0.05; % m
 L3 = 0.1; % m
 L4 = 0.1; % m
 
-Lp = 0.1 % m 
 
-c = [L1, L2, L3, L4, Lp];
+c = [L1, L2, L3, L4];
 
 % Plot
-figure (1)
+figure ()
 i=1;
 
 joint = zeros(5,1);
@@ -72,3 +71,9 @@ grid on;
 view(40,30);
 
 hold off
+
+
+%% test IK
+
+out = IK_6dof(T{8}, c);
+

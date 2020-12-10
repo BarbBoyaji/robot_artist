@@ -29,9 +29,15 @@ h2 = - d4*s3 - a2;
 
 t2 = atan2(h1*x - f1*z,f2*z - h2*x);
 
-R01 = [cos(t1) -sin(t1) 0;sin(t1) cos(t1) 0;0 0 1];
-R12 = [cos(t2) -sin(t2) 0;0 0 1;-sin(t2) -cos(t2) 0];
-R23 = [cos(t3) -sin(t3) 0;sin(t3) cos(t3) 0;0 0 1];
+R01 = [cos(t1) -sin(t1) 0;
+       sin(t1) cos(t1) 0;
+       0 0 1];
+R12 = [cos(t2) -sin(t2) 0;
+       0 0 1;
+       -sin(t2) -cos(t2) 0];
+R23 = [cos(t3) -sin(t3) 0;
+       sin(t3) cos(t3) 0;
+       0 0 1];
 p = (R01*R12*R23)'*R;
 
 t5 = atan2(sqrt(p(1,3)^2 + p(3,3)^2),-p(2,3));
