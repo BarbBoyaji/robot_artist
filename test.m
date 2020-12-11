@@ -19,15 +19,17 @@ figure ()
 i=1;
 
 joint = zeros(5,1);
-joint(1) = -pi/4;
-joint(2) = 0;
-joint(3) = 0;
+joint(1) = 0;
+joint(2) = pi/6;
+joint(3) = pi/6;
 joint(4) = 0;
 joint(5) = 0;
 joint(6) = 0;
-T_ = FK_6dof(c,joint(:,i));
+%T_ = FK_6dof(c,joint(:,i));
 
-joint = IK_6dof(T_{7}, c);
+T_ = [eye(3) , [0.15;0.01;0.3]; 0 0 0 1];
+
+joint = IK_6dof(T_, c);
 
 T = FK_6dof(c,joint(:,i));
 
@@ -101,19 +103,46 @@ plot3(x,.1*y +.1,.1*z+.15, 'r')
 %rose 2
 plot3(x,.1*y -.1,.1*z+.15, 'r')
 
-%% animation
+
+%% collect a trajectory, a scribble
+N = 100;
+scribble = zeros(6,N);
+%scribble(2,:) = horzcat(linspace(0, pi/1.5,N/4), linspace(pi/1.5, pi/6,N/4),...
+%                        linspace(pi/6, pi/2,N/4), linspace(pi/2, pi/3,N/4));
+
+scribble(2,:) = horzcat(linspace(0, pi,N/2), linspace(pi, pi/6,N/2));
+scribble(3,:) = horzcat(linspace(pi/2,0,N/2), linspace(0, pi/2,N/2));
+xyz = zeros(3,N);
+
+for i = 1:N
+    T = FK_6dof(c, scribble(:,i));
+    xyz(:,i) = T{7}(1:3,4);
+end
+
+x = xyz(1,:);
+y = xyz(2,:);
+z = xyz(3,:);
+
+%% Spiral
 
 % Trajectory in Cartesian Space
 N = 100;
 t = linspace(0,2*pi,N);
-x = 0.025*cos(t) + 0.1;
-y = 0.025*sin(t);
-z = 0.005*sin(5*t) + 0.2;
 
-figure()
-plot3(x,y,z,'r');
+% plot an archimedan spiral
+r = 0.09; %outer radius
+a = 0;    %inner radius
+b = 0.04; %incerement per rev % Jos: changed to see the spiral!!
+n = (r - a)./(b); %number  of revolutions
+th = 2*n*pi;      %angle  
+Th = linspace(0,th,N);  
+z = (a + b.*Th/(2*pi)).*cos(Th) + 0.3;
+y = (a + b.*Th/(2*pi)).*sin(Th) + 0.01;
+%z = r*sin(t) +0.3;
+%x = r*cos(t) -0.09;
+x = ones(1,N)*0.15;
 
-
+%% Animation
 % Joint Space
 for i = 1:N
     p = [x(i);y(i);z(i)];
@@ -121,6 +150,12 @@ for i = 1:N
     T0e = [R     p;
            0 0 0 1];
     joint(:,i) = IK_6dof(T0e,c);
+    
+    T_ = FK_6dof(c, joint(:,i));
+    if norm(T0e(1:3,4)-T_{7}(1:3,4)) > 1e-3
+       disp("FAIL"); 
+    end
+    
 end
 
 
