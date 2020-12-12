@@ -26,6 +26,11 @@ if(py < 0)
     beta = acos(L2/r0);
 %     t1 = pi - beta - (pi/2 + phi);%-beta + phi;
     t1 = - (pi/2 - (beta - phi));
+% % % % % elseif py < L2
+% % % % %     phi = atan2(py, px);
+% % % % %     beta = acos(L2/r0);
+% % % % % %     t1 = pi - beta - (pi/2 + phi);%-beta + phi;
+% % % % %     t1 = - pi/2 + beta + phi;
 else
     phi = atan2(sin_phi, cos_phi);
     beta = acos(L2/r0);
@@ -38,17 +43,17 @@ p_rot = sqrt(r0^2 - L2^2);
 %cos_t3 = (p_rot^2 - (L3^2+L4^2))/(2*L3*L4);
 r3 = sqrt(p_rot^2 + (L1-pz)^2);
 cos_t3 = (r3^2 - (L3^2+L4^2))/(2*L3*L4);
-sin_t3 = round(sqrt(1-cos_t3^2), 2);
+sin_t3 = sqrt(1-cos_t3^2);
 t3 = atan2(sin_t3, cos_t3);
 
 r2 = sqrt(p_rot^2 +(pz-L1)^2);
 cos_psi = (-L4^2 + (r2^2 + L3^2))/(2*r2*L3);
 cos_gamma = (-(pz-L1)^2 + (p_rot^2 + r2^2))/(2*p_rot*r2);
-sin_psi = round(sqrt(1 - cos_psi^2), 2);
-sin_gamma = round(sqrt(1 - cos_gamma^2), 2);
+sin_psi = sqrt(1 - cos_psi^2);
+sin_gamma = sqrt(1 - cos_gamma^2);
 t2 = atan2(sin_psi, cos_psi) - atan2(sin_gamma, cos_gamma);
 
-if(pz < L1)
+if(t3>0)
     t2 = -t2;
 end
 
@@ -72,12 +77,12 @@ R34 = [1 0 0;
    
 eef = (R01*R12*R23*R34)'*T06(1:3,1:3);
 
-t5 = atan2(sqrt(eef(1,3)^2 + eef(3,3)^2),-eef(2,3));
+t5 = 0; %atan2(sqrt(eef(1,3)^2 + eef(3,3)^2),-eef(2,3));
 
 s5 = sin(t5);
 
-t4 = atan2(eef(3,3)/s5,eef(1,3)/s5);
-t6 = atan2(-eef(2,2)/s5,eef(2,1)/s5);
+t4 = 0; %atan2(eef(3,3)/s5,eef(1,3)/s5);
+t6 = 0; %atan2(-eef(2,2)/s5,eef(2,1)/s5);
 
 
 %eulZYX = rotm2eul(T06(1:3,1:3));
