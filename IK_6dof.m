@@ -44,18 +44,27 @@ p_rot = sqrt(r0^2 - L2^2);
 r3 = sqrt(p_rot^2 + (L1-pz)^2);
 cos_t3 = (r3^2 - (L3^2+L4^2))/(2*L3*L4);
 sin_t3 = sqrt(1-cos_t3^2);
-t3 = atan2(sin_t3, cos_t3);
+try
+    t3 = atan2(sin_t3, cos_t3);
+catch
+    disp("error here!")
+end
 
 r2 = sqrt(p_rot^2 +(pz-L1)^2);
 cos_psi = (-L4^2 + (r2^2 + L3^2))/(2*r2*L3);
 cos_gamma = (-(pz-L1)^2 + (p_rot^2 + r2^2))/(2*p_rot*r2);
 sin_psi = sqrt(1 - cos_psi^2);
 sin_gamma = sqrt(1 - cos_gamma^2);
-t2 = atan2(sin_psi, cos_psi) - atan2(sin_gamma, cos_gamma);
 
-if(t3>0)
-    t2 = -t2;
+if pz > L1
+    t2 = - atan2(sin_psi, cos_psi) - atan2(sin_gamma,cos_gamma);
+else
+    t2 = - atan2(sin_psi, cos_psi) + atan2(sin_gamma, cos_gamma);
 end
+
+% if(t3>0)
+%     t2 = -t2;
+% end
 
 % use euler angles to get the orientation of t4, t5, t6
 % z(t1) -> x(-90) -> z(t2) -> z(t3) -> x(90)
