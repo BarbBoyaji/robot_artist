@@ -34,7 +34,7 @@ c = [L1, L2, L3, L4];
 % end
 
 
-pt = [eye(3) , [0.15;0.01;0.4]; 0 0 0 1]
+pt = [rotz(1.0)*rotx(1.0)*roty(1.0) , [0.15;0.01;0.2]; 0 0 0 1]
 IK_joint = IK_6dof(pt, c);
 pp = FK_6dof(c,IK_joint);
-pp{end}(1:3,4)
+pp{end}
