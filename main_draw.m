@@ -81,47 +81,47 @@ view(40,30);
 
 %% plot the sketch
 
-% test code to plot the first graph
-z(1)=0;
-y(1)=0;
-
-N=100;
-traj = linspace(0,50,N);
-
-for k = 1:N
-z(k+1)=(y(k)*(1+sind(0.7*z(k))))-1.2*sqrt(abs(z(k)));
-y(k+1)=0.21-z(k);
-end
-x = .15*ones(1,k+1);
-
-%rose 1
-plot3(x,.1*y,.1*z+.2, 'r')
-
-%rose 2
-plot3(x,.1*y +.1,.1*z+.15, 'r')
-
-%rose 2
-plot3(x,.1*y -.1,.1*z+.15, 'r')
+% % test code to plot the first graph
+% z(1)=0;
+% y(1)=0;
+% 
+% N=100;
+% traj = linspace(0,50,N);
+% 
+% for k = 1:N
+% z(k+1)=(y(k)*(1+sind(0.7*z(k))))-1.2*sqrt(abs(z(k)));
+% y(k+1)=0.21-z(k);
+% end
+% x = .15*ones(1,k+1);
+% 
+% %rose 1
+% plot3(x,.1*y,.1*z+.2, 'r')
+% 
+% %rose 2
+% plot3(x,.1*y +.1,.1*z+.15, 'r')
+% 
+% %rose 2
+% plot3(x,.1*y -.1,.1*z+.15, 'r')
 
 
 %% collect a trajectory, a scribble
-N = 100;
-scribble = zeros(6,N);
-%scribble(2,:) = horzcat(linspace(0, pi/1.5,N/4), linspace(pi/1.5, pi/6,N/4),...
-%                        linspace(pi/6, pi/2,N/4), linspace(pi/2, pi/3,N/4));
-
-scribble(2,:) = horzcat(linspace(0, pi,N/2), linspace(pi, pi/6,N/2));
-scribble(3,:) = horzcat(linspace(pi/2,0,N/2), linspace(0, pi/2,N/2));
-xyz = zeros(3,N);
-
-for i = 1:N
-    T = FK_6dof(c, scribble(:,i));
-    xyz(:,i) = T{7}(1:3,4);
-end
-
-x = xyz(1,:);
-y = xyz(2,:);
-z = xyz(3,:);
+% N = 100;
+% scribble = zeros(6,N);
+% %scribble(2,:) = horzcat(linspace(0, pi/1.5,N/4), linspace(pi/1.5, pi/6,N/4),...
+% %                        linspace(pi/6, pi/2,N/4), linspace(pi/2, pi/3,N/4));
+% 
+% scribble(2,:) = horzcat(linspace(0, pi,N/2), linspace(pi, pi/6,N/2));
+% scribble(3,:) = horzcat(linspace(pi/2,0,N/2), linspace(0, pi/2,N/2));
+% xyz = zeros(3,N);
+% 
+% for i = 1:N
+%     T = FK_6dof(c, scribble(:,i));
+%     xyz(:,i) = T{7}(1:3,4);
+% end
+% 
+% x = xyz(1,:);
+% y = xyz(2,:);
+% z = xyz(3,:);
 
 %% Spiral
 
@@ -152,7 +152,7 @@ for i = 1:N
     joint(:,i) = IK_6dof(T0e,c);
     
     T_ = FK_6dof(c, joint(:,i));
-    if norm(T0e(1:3,4)-T_{7}(1:3,4)) > 1e-3
+    if norm(T0e-T_{7}) > 1e-3
        disp("FAIL"); 
     end
     
