@@ -81,7 +81,8 @@ R34 = [1 0 0;
        0 cos(pi/2) -sin(pi/2);
        0 sin(pi/2) cos(pi/2)];
    
-eef = (rotz(t1)*rotx(-pi/2)*rotz(t2)*rotz(t3)*rotx(pi/2))'*T06(1:3,1:3);
+% eef = (rotz(t1)*rotx(-pi/2)*rotz(t2)*rotz(t3)*rotx(pi/2))'*T06(1:3,1:3);
+eef = (R01*R12*R23*R34)'*T06(1:3,1:3);
 
 t5 = atan2(sqrt(eef(1,3)^2 + eef(2,3)^2),-eef(3,3));
 

@@ -152,7 +152,7 @@ for i = 1:N
     joint(:,i) = IK_6dof(T0e,c);
     
     T_ = FK_6dof(c, joint(:,i));
-    if norm(T0e-T_{7}) > 1e-3
+    if norm(T0e-T_{end}) > 1e-3
        disp("FAIL"); 
     end
     
