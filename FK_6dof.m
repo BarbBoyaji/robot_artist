@@ -15,17 +15,6 @@ t3 = joint(3);
 t4 = joint(4);
 t5 = joint(5);
 t6 = joint(6);
-
-% DH parameters
-% alpha a d theta
-%DH = [0 0 0 t1;
-%      0 0 L1 0;
-%     -pi/2 0 L2 t2;
-%      0 L3 0 t3;
-%      pi/2 0 L4 t4;
-%      -pi/2 0 0 t5
-%      -pi/2 0 0 t6
-%       0 0 0 0];
  
 DH = [0 0 0 t1;
       0 0 L1 0;

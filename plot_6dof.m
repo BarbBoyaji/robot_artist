@@ -31,7 +31,7 @@ T = FK_6dof(c,joint(:,i));
 hold on
 
 % Manipulator
-for j = 1:7
+for j = 1:6
     pj = T{j}(1:3,4);
     pj1 = T{j+1}(1:3,4);
     plot3([pj(1) pj1(1)],[pj(2) pj1(2)],[pj(3) pj1(3)],'k','linewidth',4);

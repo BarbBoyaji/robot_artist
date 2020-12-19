@@ -22,21 +22,19 @@ c = [L1, L2, L3, L4, 0];
 collection = zeros(3,  2000000);
 counter = 1;
 
-for joint2 = -3*pi/2:0.1:pi/2
-    for joint3 = -pi/2:0.1:pi/2
-        for joint4 = -pi/2:0.1:pi/2
-%             for joint5 = 0:0.02:0.1
+for joint1 = -pi:0.1:pi
+    for joint2 = -3*pi/2:0.1:pi/2
+        for joint3 = -pi:0.1:pi
                 
-                joint = [0, joint2, joint3, joint4 , 0];
+                joint = [joint1, joint2, joint3, 0 , 0, 0];
                 
-                T = FK(c,joint);
+                T = FK_6dof(c,joint);
 
                 pj = T{end}(1:3,4);
                 
                 collection(:,counter) = pj;
-                counter = counter+1
+                counter = counter+1;
                 
-%             end
         end
     end
 end
